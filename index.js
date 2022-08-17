@@ -30,7 +30,7 @@ require("./mongo")
 
 /// Connextion aux fichiers controllers
 const { createUser, logUser } = require("./controllers/user")
-const { getSauces, createSauces } = require("./controllers/sauces")
+const { getSauces, createSauces, getSauceId, deleteSauceId, modifySauces, likeSauce } = require("./controllers/sauces")
 //Middleware
 app.use(cors())
 app.use(express.json())
@@ -43,8 +43,11 @@ app.post('/api/auth/signup', createUser)
 app.post("/api/auth/login", logUser)
 app.get("/api/sauces", getSauces)
 app.post("/api/sauces", upload.single("image"), createSauces)
+app.get("/api/sauces/:id", getSauceId)
+app.delete("/api/sauces/:id", deleteSauceId)
+app.put("/api/sauces/:id", upload.single("image"), modifySauces)
+app.post("/api/sauces/:id/like", likeSauce)
 app.get('/', (req, res) => res.send('Test'))
-
 
 
 ////Middleware pour que notre dossier images soit public et donc y afficher les images
